@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+sxhkd &
+xrdb ~/.Xresources &
+feh --no-fehbg --bg-scale /home/sagar/.wall/wall.jpg &
+setxkbmap -option ctrl:nocaps &                            
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+bspc config focused_border_color \#aaaaaa 
+bspc config presel_feedback_color \#aaaaaa 
+
+bspc config split_ratio            0.53 
+bspc config borderless_monocle     true 
+bspc config gapless_monocle        true 
+bspc config paddingless_monocle    true 
+bspc config click_to_focus         true 
+bspc config focus_follows_pointer  true 
+bspc config border_width           1 
+bspc config window_gap             5 
+bspc config top_padding            40 
+bspc config bottom_padding         15 
+bspc config right_padding          15 
+bspc config left_padding           15 
+
+bspc monitor -d I II III IV V VI VII 
+
+bspc rule -a Emacs state=tiled 
+bspc rule -a '*' private=on 
+
+polybar main -c "/home/sagar/.config/polybar" &
+xsetroot -cursor_name left_ptr &
+unclutter -root &
+redshift &
+compton -b &
+numlockx &
+urxvtd -q -f -o &
+emacs --daemon &
+xcape -e 'Control_L=Escape' -t 175 &
+dunst &
+start-pulseaudio-x11 &
+#mpd &
+#sh -c "sleep 15 && mpd-notification" &
+xinput set-prop 13 "libinput Tapping Enabled" 1 
+xinput set-prop 13 "libinput Natural Scrolling Enabled" 1 
+xinput set-prop 13 "Device Enabled" 0 
+#xautolock -detectsleep -corners 0000 \
+          #-notify  20 -notifier "xset dpms force off" \
+          #-time     2 -locker   "i3lock -nc 000000" &
+#bash ~/bash/lightson.sh &
+#/usr/bin/dropbox & 

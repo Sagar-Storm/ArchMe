@@ -1,0 +1,132 @@
+## KeyBindings for sxhkd to work with bspwm
+
+super + Return
+	urxvt
+
+super + {_, shift +}d
+      rofi -show {drun, run}
+
+super + ctrl + Escape
+	pkill -USR1 -x sxhkd
+
+super + shift + Escape
+	bspc quit
+
+super + Escape
+	bspc node -c
+
+super + m
+	bspc desktop -l next
+
+super + y
+	bspc query -N -n focused.automatic && bspc node -n last.!automatic || bspc node last.leaf -n focused
+
+super + g
+	bspc node -s biggest
+
+super + {t, shift + space,f}
+	bspc node -t {tiled,floating,fullscreen}
+
+super + ctrl + {z,x,c}
+	bspc node -g {locked,sticky,private}
+
+super + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+
+super + {comma, period}
+	bspc node -f {next,prev}.local
+
+super + bracket{left,right}
+	bspc desktop -f {prev,next}.local
+
+super + {grave,Tab}
+	bspc {node,desktop} -f last
+
+super + {o,i}
+	bspc wm -h off; \
+	bspc node {older,newer} -f; \
+	bspc wm -h on
+
+super + {1-9,0}
+       	bspc desktop -f '^{1-9,10}' 
+      
+super + shift + {1-9,0}
+       a=$(bspc query -N -n); bspc node -d '^ {1-9}'; bspc node -f ${a}
+
+super + ctrl + {j,l,h,k}
+	bspc node -p {west,south,north,east}
+
+super + ctrl + space
+	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
+super + ctrl + {1-9}
+	bspc node -o 0.{1-9}
+
+super + alt + {h,j,k,l}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+super + alt + shift + {h,j,k,l}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+super + {Left,Down,Up,Right}
+	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+# balance
+super + {_,shift +} b
+	bspc node @/ {-E,-B}
+
+F9
+    xdotool mousemove 1920 0
+
+Print
+    scrot
+
+super + space ; shift + p 
+        bspc config top_padding 0 ; \
+        pkill polybar
+
+super + space ;  p
+      bspc config top_padding 25 ; \
+      polybar main -c "/home/sagar/.config/polybar" 
+
+super + space ; {e, f, t, c, g, i, u}
+	{emacs, thunar, termite, chromium, gitkraken , pamac-manager, pamac-updater}
+    
+super + shift + s
+      systemctl suspend
+      
+super + Delete
+      /usr/local/bin/lock
+
+super + shift + {e, r}
+      {poweroff, reboot}
+
+super + {KP_Add, KP_Subtract}
+      amixer set Master {2%+, 2%-}
+      
+control + {KP_Add, KP_Subtract}
+        mpc volume {+2,-2}
+
+F10
+    mpc toggle
+
+F11
+    mpc next 
+    
+F12
+    mpc prev
+    
+shift + {F11, F12}
+    mpc seek {-30, +30}
+      
+XF86Audio{LowerVolume,RaiseVolume,Mute}
+    amixer set Master {2-,2+,toggle}
+
+XF86MonBrightness{Down,Up}
+    xbacklight -{dec,inc} 5 -steps 1
+
+super + a
+      xinput set-prop 13 "Device Enabled" 1
+
+super + shift + a
+      xinput set-prop 13 "Device Enabled" 0
